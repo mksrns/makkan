@@ -5,13 +5,6 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:3000/',
-  // remoteUrl: 'https://api.zedua.com/',
-  // baseUrl: 'https://www.zedua.com/',
-  // administratorUrl: 'https://dashboard.zedua.com/',
-  googleClientId: '545395310267-qsodeksjhnum8im4pu0cj13n9tctjqpa.apps.googleusercontent.com',
-  facebookClientId: '2824472924446424',
-  // googleApiKey: "AIzaSyDdgp7-WndDqrTuvuqVW6XF7C1BjR4D7_Q",
-  // assetsContainerUrl: "https://cdn3.zedua.com/"
 };
 
 /*
