@@ -32,7 +32,7 @@ export class SuperAdminService {
     if(localStorage.getItem('token')) {
       if(jwt_decode(localStorage.getItem('token')).email === localStorage.getItem('currentUser')
         // && jwt_decode(localStorage.getItem('token')).aud === "bricks-17395"
-        // && jwt_decode(localStorage.getItem('token')).exp * 1000 > Date.now()
+        && jwt_decode(localStorage.getItem('token')).exp * 1000 > Date.now()
         ) {
           return true;
       } 

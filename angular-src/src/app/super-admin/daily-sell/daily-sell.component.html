@@ -1,51 +1,47 @@
+<!-- Main Navigations starts -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 report">
+      <button type="button" class="btn btn-primary main-btn" (click)="showReport()">
+        <span *ngIf="!loading">Sales Report</span> 
+        <div class="loading" *ngIf="loading">
+          <div class="loader"></div>
+        </div>
+      </button>
+    </div>
+    <div class="col-md-6 add_new">
+      <button type="button" class="btn btn-primary main-btn" data-toggle="modal" data-target="#addNewModal">Add New</button>
+    </div>
+  </div>
+</div>
+<!-- Main Navigation ends -->
+
 <!-- Filters starts -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Filters</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<nav class="navbar navbar-expand-lg navbar-light bg-light"  *ngIf="show_report">
+  <a class="navbar-brand" href="#">Filters</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <form [formGroup]="searchForm" class="form-inline my-2 my-lg-0">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            State
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Districts
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </li>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <input matInput formControlName="saleDate" [matDatepicker]="picker" placeholder="Choose a date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2" type="submit">Search</button>
-      </form>
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewModal">Add New</button>
-    </div>
-  </nav>
+      <input formControlName="customer_name" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2" (click)="filterSales()" type="submit">Search</button>
+    </form>
+    <button type="button" class="btn btn-primary" (click)="hideReport()">Hide Report</button>
+  </div>
+</nav>
 <!-- Filters ends -->
 
 <!-- Table starts -->
-<div class="table-responsive">
+<div class="table-responsive" *ngIf="show_report">
     <table class="table table-bordered table-hover">
         <thead>
           <tr>
@@ -63,27 +59,27 @@
             <th>Due</th>
           </tr>
         </thead>
-        <tbody *ngIf="!loading">
+        <tbody>
           <tr *ngFor="let dailySell of dailySells">
-            <td>{{dailySell?.customerName}}</td>
-            <td>{{dailySell?.address.area}}, {{dailySell?.address.locality}}, {{dailySell?.address.district}}, {{dailySell?.address.state}}</td>
+            <td>{{dailySell?.customer_name}}</td>
+            <td>{{dailySell?.area}} {{dailySell?.locality}} {{dailySell?.district}} {{dailySell?.state}}</td>
             <td>{{dailySell?.mobile}}</td>
-            <td>{{dailySell?.brickQuality}}</td>
+            <td>{{dailySell?.brick_qty}}</td>
             <td>{{dailySell?.rate}}</td>
-            <td>{{dailySell?.quantity}}</td>
-            <td>{{dailySell?.vehicleNo}}</td>
-            <td>{{dailySell?.gaddiBhara}}</td>
-            <td>{{dailySell?.brickAmount}}</td>
-            <td>{{dailySell?.totalAmount}}</td>
+            <td>{{dailySell?.qty}}</td>
+            <td>{{dailySell?.vehicle_no}}</td>
+            <td>{{dailySell?.gaddi_bhara}}</td>
+            <td>{{dailySell?.brick_amt}}</td>
+            <td>{{dailySell?.total_amt}}</td>
             <td>{{dailySell?.deposit}}</td>
-            <td>{{dailySell?.due}}</td>
+            <td>{{dailySell?.pending}}</td>
           </tr>
         </tbody>
     </table>
 </div>
-<div class="loading">
-    <div class="loader" *ngIf="loading"></div>
-</div>
+<!-- <div class="loading">
+    <div class="loader" *ngIf="loading && show_report"></div>
+</div> -->
 <!-- Table ends -->
 
 <!-- Add New Sell starts -->
@@ -101,14 +97,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="customer-name" class="col-form-label">Customer Name</label>
-                        <input formControlName="customerName" type="text" class="form-control" id="customer-name">
+                        <label for="customer-name" class="col-form-label">Customer Name*</label>
+                        <input formControlName="customer_name" type="text" class="form-control" id="customer-name">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="mobile" class="col-form-label">Mobile</label>
-                        <input formControlName="mobile" type="text" class="form-control" id="mobile">
+                        <label for="mobile" class="col-form-label">Mobile*</label>
+                        <input formControlName="mobile" type="number" class="form-control" id="mobile">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -125,7 +121,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="district" class="col-form-label">District</label>
+                        <label for="district" class="col-form-label">District*</label>
                         <input formControlName="district" type="text" class="form-control" id="district">
                     </div>
                 </div>
@@ -137,38 +133,38 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="brick quality" class="col-form-label">Brick Quality</label>
-                        <input formControlName="brickQuality" type="text" class="form-control" id="brick-quality">
+                        <label for="brick quality" class="col-form-label">Brick Quality*</label>
+                        <input formControlName="brick_qty" type="text" class="form-control" id="brick-quality">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="rate" class="col-form-label">Rate</label>
-                        <input formControlName="rate" type="text" class="form-control" id="rate">
+                        <label for="rate" class="col-form-label">Rate*</label>
+                        <input formControlName="rate" type="number" class="form-control" id="rate">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="quantity" class="col-form-label">Quantity</label>
-                        <input formControlName="quantity" type="text" class="form-control" id="quantity">
+                        <label for="quantity" class="col-form-label">Quantity*</label>
+                        <input formControlName="qty" type="number" class="form-control" id="quantity">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="gaddibhara" class="col-form-label">Gaddi Bhara</label>
-                        <input formControlName="gaddiBhara" type="text" class="form-control" id="gaddibhara">
+                        <input formControlName="gaddi_bhara" type="number" class="form-control" id="gaddibhara">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="vehicleNo" class="col-form-label">Vehicle No.</label>
-                        <input formControlName="vehicleNo" type="text" class="form-control" id="vehicleNo">
+                        <input formControlName="vehicle_no" type="text" class="form-control" id="vehicleNo">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="deposit" class="col-form-label">Deposit</label>
-                        <input formControlName="deposit" type="text" class="form-control" id="deposit">
+                        <label for="deposit" class="col-form-label">Deposit*</label>
+                        <input formControlName="deposit" type="number" class="form-control" id="deposit">
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@
             <div class="col-md-6 login-form">
                 <div class="content">
                     <div class="headers center">
-                        <p class="logo-text">MAKKAN</p>
+                        <p class="logo-text" style="margin-bottom: 20px;">MAKKAN</p>
                         <p class="slogan">Welcome back! Please login to your account.</p>
                     </div> 
                                         
@@ -30,7 +30,13 @@
                                 <span data-placeholder="Password"></span>
                             </div>
                             <div class="center mt-5">
-                                <button type="submit" (click)="onFormSubmit()" [disabled]="loginForm.invalid" class="btn sign-active">Login</button>
+                                <button type="submit" (click)="onFormSubmit()" [disabled]="loginForm.invalid" class="btn sign-active">
+                                    <span *ngIf="!loading">Login</span> 
+                                    <div class="loading" *ngIf="loading" style="padding: 1px 10px;">
+                                        <div class="loader"></div>
+                                    </div>
+                                </button>
+                                
                             </div>
                         </form>
                     </div>

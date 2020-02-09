@@ -52,7 +52,7 @@ app.use(bodyParser.json());
 
 //Routes for handling requests
 app.use('/superAdmin', superAdminRoutes);
-// app.use('/dailySells', dailySellsRoutes);
+app.use('/dailySells', dailySellsRoutes);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));

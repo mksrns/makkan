@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   logged:boolean = false;
   loginError:string;
   loginForm:FormGroup;
+  loading: boolean = false;
 
   constructor(
     private formbuilder: FormBuilder, 
@@ -58,6 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(superAdmin:superAdmin){
+    this.loading = true;
     this.superAdminServ.login(superAdmin).subscribe(
         data => {
           localStorage.setItem('token', JSON.stringify(data.token));

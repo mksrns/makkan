@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const aggregatePaginate = require('mongoose-aggregate-paginate-v2');
 
 var Schema = mongoose.Schema;
 
@@ -23,5 +24,5 @@ var dailySellSchema = new Schema({
     created_at: {type: Date, required:true },
     updated_at: {type: Date},
 });
-
+dailySellSchema.plugin(aggregatePaginate);
 module.exports = mongoose.model('DailySell', dailySellSchema);
