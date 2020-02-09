@@ -1,0 +1,185 @@
+<!-- Filters starts -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Filters</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            State
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Districts
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </li>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0 mr-sm-2" type="submit">Search</button>
+      </form>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewModal">Add New</button>
+    </div>
+  </nav>
+<!-- Filters ends -->
+
+<!-- Table starts -->
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Mobile</th>
+            <th>Brick Quality</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+            <th>Vehicle No.</th>
+            <th>Gaddi bhara</th>
+            <th>Brick Amt</th>
+            <th>Total Amt</th>
+            <th>Deposit</th>
+            <th>Due</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="!loading">
+          <tr *ngFor="let dailySell of dailySells">
+            <td>{{dailySell?.customerName}}</td>
+            <td>{{dailySell?.address.area}}, {{dailySell?.address.locality}}, {{dailySell?.address.district}}, {{dailySell?.address.state}}</td>
+            <td>{{dailySell?.mobile}}</td>
+            <td>{{dailySell?.brickQuality}}</td>
+            <td>{{dailySell?.rate}}</td>
+            <td>{{dailySell?.quantity}}</td>
+            <td>{{dailySell?.vehicleNo}}</td>
+            <td>{{dailySell?.gaddiBhara}}</td>
+            <td>{{dailySell?.brickAmount}}</td>
+            <td>{{dailySell?.totalAmount}}</td>
+            <td>{{dailySell?.deposit}}</td>
+            <td>{{dailySell?.due}}</td>
+          </tr>
+        </tbody>
+    </table>
+</div>
+<div class="loading">
+    <div class="loader" *ngIf="loading"></div>
+</div>
+<!-- Table ends -->
+
+<!-- Add New Sell starts -->
+<div class="modal fade" id="addNewModal" tabindex="-1" role="dialog" aria-labelledby="addNewModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addNewModalLabel">Add New Sell</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="dailySellForm">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="customer-name" class="col-form-label">Customer Name</label>
+                        <input formControlName="customerName" type="text" class="form-control" id="customer-name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="mobile" class="col-form-label">Mobile</label>
+                        <input formControlName="mobile" type="text" class="form-control" id="mobile">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="area" class="col-form-label">Area</label>
+                        <input formControlName="area" type="text" class="form-control" id="area">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="locality" class="col-form-label">Locality</label>
+                        <input formControlName="locality" type="text" class="form-control" id="locality">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="district" class="col-form-label">District</label>
+                        <input formControlName="district" type="text" class="form-control" id="district">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="state" class="col-form-label">State</label>
+                        <input formControlName="state" type="text" class="form-control" id="state">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="brick quality" class="col-form-label">Brick Quality</label>
+                        <input formControlName="brickQuality" type="text" class="form-control" id="brick-quality">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="rate" class="col-form-label">Rate</label>
+                        <input formControlName="rate" type="text" class="form-control" id="rate">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="quantity" class="col-form-label">Quantity</label>
+                        <input formControlName="quantity" type="text" class="form-control" id="quantity">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="gaddibhara" class="col-form-label">Gaddi Bhara</label>
+                        <input formControlName="gaddiBhara" type="text" class="form-control" id="gaddibhara">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="vehicleNo" class="col-form-label">Vehicle No.</label>
+                        <input formControlName="vehicleNo" type="text" class="form-control" id="vehicleNo">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="deposit" class="col-form-label">Deposit</label>
+                        <input formControlName="deposit" type="text" class="form-control" id="deposit">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" (click)="addNewSell()" [disabled]="dailySellForm.invalid" class="btn sign-active">Add Sell</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add new sell ends -->

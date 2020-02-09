@@ -1,0 +1,37 @@
+.table-responsive {
+    box-shadow: 0 1px 2px 0 rgb(246, 247, 249), 0 1px 3px 1px rgba(60,64,67,.15);
+}
+.table {
+    margin-bottom: 0;
+}
+.loading {
+    padding-left: 43%;
+    padding-top: 25px;
+}
+.loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #5a55aa;
+    width: 75px;
+    height: 75px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .bg-light {
+    box-shadow: 0 1px 2px 0 rgb(246, 247, 249), 0 1px 3px 1px rgba(60,64,67,.15);
+    margin-bottom: 21px;
+  }
+  .sign-active {
+    padding: .375rem .75rem;
+  }

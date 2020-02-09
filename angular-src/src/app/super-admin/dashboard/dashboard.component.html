@@ -1,0 +1,81 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="(isHandset$ | async) === false">
+      <mat-toolbar class="company-name">Makkan</mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['1']" class="sidebar-link" [routerLinkActive]="'is-active'">Dashboard</a>
+        <a mat-list-item [routerLink]="['daily-sell']" class="sidebar-link" [routerLinkActive]="'is-active'">Daily Sell</a>
+        <a mat-list-item [routerLink]="['staff']" class="sidebar-link" [routerLinkActive]="'is-active'">Staff</a>
+        <a mat-list-item [routerLink]="['coal']" class="sidebar-link" [routerLinkActive]="'is-active'">Coal</a>
+        <a mat-list-item [routerLink]="['zameen-royalty']" class="sidebar-link" [routerLinkActive]="'is-active'">Zameen Royalty</a>
+        <a mat-list-item [routerLink]="['vehicle']" class="sidebar-link" [routerLinkActive]="'is-active'">Vehicle</a>
+        <a mat-list-item [routerLink]="['bala-mitti']" class="sidebar-link" [routerLinkActive]="'is-active'">Bala & Mitti</a>
+        <a mat-list-item [routerLink]="['kachha-itta']" class="sidebar-link" [routerLinkActive]="'is-active'">Kachha Itta</a>
+        <a mat-list-item [routerLink]="['about-us']" class="sidebar-link" [routerLinkActive]="'is-active'">About Us</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <!-- <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="!isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button> -->
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <span></span>
+        <span class="example-spacer"></span>
+        <span class="logout" (click)="logout()">Logout</span>
+        
+      </mat-toolbar>
+      <!-- Add Content Here -->
+      <div class="container mt-3">
+          <router-outlet></router-outlet>
+      </div>
+      
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  
+
+
+
+<!-- <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3 menus">
+        <div class="sidebar sticky-sidebar">
+          <div class="headers">
+            <p class="logo-text">JFC</p>
+          </div>
+          <div class="sidebar-links" [routerLink]="['customers']" [routerLinkActive]="'is-active'">
+            <p class="sidebar-link">Customers</p>
+          </div>
+          <div class="sidebar-links" [routerLink]="['staffs']" [routerLinkActive]="'is-active'">
+            <p class="sidebar-link">Staffs</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 backgr">
+        <div class="menu-items">
+            <div class="top-navbar">
+              <button class="btn" (click)="logout()">Logout</button>
+            </div>
+        </div>
+        <div class="contents">
+            <router-outlet></router-outlet>
+        </div>        
+      </div>
+    </div>
+  </div> -->
+  
+ <!--  <button type="button" [routerLink]="['customers']" class="btn btn-primary">Customers</button>
+  <br><button type="button" [routerLink]="['staffs']" class="btn btn-primary">Staffs</button> -->

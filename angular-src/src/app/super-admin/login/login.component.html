@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <div class="login-page">
+        <div class="row">
+            <div class="col-md-6 hidden-mobile hidden-mobile-landscape scene">
+
+            </div>
+            <div class="col-md-6 login-form">
+                <div class="content">
+                    <div class="headers center">
+                        <p class="logo-text">MAKKAN</p>
+                        <p class="slogan">Welcome back! Please login to your account.</p>
+                    </div> 
+                                        
+                    <div class="form-container-sign">
+                        <div *ngIf="logged" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <strong>Invalid Credentials</strong> Try Again.
+                        </div>
+
+                        <form [formGroup]="loginForm" class="">
+                            <div class="form-group borderbtm">
+                                <input formControlName="email" type="email" class="form-control" id="email">
+                                <span data-placeholder="Email"></span>
+                            </div>
+                            <div class="form-group borderbtm">
+                                <input formControlName="password" type="password" class="form-control" id="pwd">
+                                <span data-placeholder="Password"></span>
+                            </div>
+                            <div class="center mt-5">
+                                <button type="submit" (click)="onFormSubmit()" [disabled]="loginForm.invalid" class="btn sign-active">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
